@@ -1,0 +1,64 @@
+#ifndef myPowerButtonManager_h
+#define myPowerButtonManager_h
+
+#include <Arduino.h>
+#include <debugHelper.h>
+
+class myPowerButtonManager 
+{
+	public:
+
+		enum StateCode {
+			TN_TO_POWERING_UP = 0,
+			STATE_POWERING_UP,
+			TN_TO_POWERED_UP_WAIT_RELEASE,
+			STATE_POWERED_UP_WAIT_RELEASE,
+			TN_TO_RUNNING,
+			STATE_RUNNING,
+			TN_TO_POWERING_DOWN,
+			STATE_POWERING_DOWN,
+			TN_TO_POWERING_DOWN_WAIT_RELEASE,
+			STATE_POWERING_DOWN_WAIT_RELEASE,
+			TN_TO_POWER_OFF,
+			STATE_POWER_OFF
+		};
+
+
+		typedef void ( *PowerUpEventCallback )( int state );
+		typedef int ( *ButtonsPressed )( );
+
+		myPowerButtonManager( int button, int activeState, long powerupMillis, long powerDownMillis, PowerUpEventCallback callback );
+		myPowerButtonManager( int button, int activeState, long powerupMillis, long powerDownMillis, PowerUpEventCallback callback, ButtonsPressed ButtonsPressed );
+		void begin(uint16_t debugOptions);
+		void serviceButton();
+		bool isRunning();
+		void setState(uint8_t state);
+		uint8_t getState();
+
+	private:
+
+		void initialise(int button, int activeState, long powerUpMillis, long powerDownMillis, PowerUpEventCallback callback );
+
+
+		bool wakeupCausedByButton();
+		bool isPressed();
+
+		// params
+		uint8_t _buttonPin;
+		uint8_t _state;
+		uint8_t _activeState;
+		long _powerUpMillis;
+		long _powerDownMillis;
+
+		int _buttonMode;
+
+		debugHelper _debug;
+
+		long _heldDownStarted;
+
+		PowerUpEventCallback _callback;
+		ButtonsPressed _buttonsPressed;
+
+};
+
+#endif
