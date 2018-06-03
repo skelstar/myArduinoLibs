@@ -1,13 +1,13 @@
+
 {
   "name": "myPushbuttonManager",
   "keywords": "button pushbutton manager events",
-  "include" : "myPushButton",
   "description": "My Pushbutton Manager",
   "version": "1.1",
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/skelstar/myArduinoLibs.git"
+    "url": "https://github.com/skelstar/myPushButton.git"
   },
   "frameworks": "arduino"
 }
