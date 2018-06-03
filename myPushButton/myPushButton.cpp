@@ -15,10 +15,10 @@ bool buttonReleaseInDoubletapWindow();
 
 //--------------------------------------------------------------------------------
 
-myPushButton::myPushButton(uint8_t pin, 
-						   bool pullUp, 
-						   uint8_t offState, 
-						   EventListener listenerCallback) {
+myPushButton::myPushButton(uint8_t pin,
+						   bool pullUp,
+						   uint8_t offState,
+						   EventListener listenerCallback ) {
     _pin = pin;
     _pullUp = pullUp;
     _offState = offState;
@@ -71,7 +71,7 @@ void myPushButton::serviceEvents() {
 				//Serial.println("*** EV_DOUBLETAP");
 				_listenerCallback(EV_DOUBLETAP, _pin, _heldSecondsCounter);
 				lastButtonReleaseTime = 0;
-	        } 
+	        }
 	        else {
 	            lastButtonReleaseTime = millis();
 	        }
